@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Resume Helper</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <nav class = "navbar bg-white">
+            <div class="container">
+                <div class = "navbar-content">
+                    <div class = "brand-and-toggler">
+                        <a href = "index.html" class = "navbar-brand">
+                            <img src = "Resume AI Proj/Images/cuny-logo-E85957DB00-seeklogo.com.png" alt = "" class = "navbar-brand-icon">
+                            <span class = "navbar-brand-text"> Builder <span>Resume/Career</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <button id="chat-button" onclick="toggleChat()" style="z-index: 1000;">
+            <img src="./try-me.png" style="position: absolute; width: 6rem; bottom: 7rem;">
+            <img src="./robot.png" alt="" style="max-width: 90%;">
+        </button>
+
+        <div id="chat-container">
+            <button id="close-button" onclick="toggleChat()">X</button>
+            <div id="message-container"></div>
+            <div id="messageInput">
+                <input type="text" id="message-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                <button id="send-button" onclick="sendMessage()"><img src="./assets/img/right-arrow.png" style="width: 1.5rem;" alt="">
+                    Send
+                </button>
+                <div class="mic-icon" id="mic-icon" onclick="toggleListening()">
+                    <img id="mic-img" src="./icons8-microphone-24.png" alt="Microphone">
+                </div>
+            </div>
+        </div>
+
+        <section id = "about-sc" class = "">
+            <div class = "container">
+                <div class = "about-cnt">
+                    <form action="" class="Resume-form" id = "Resume-form">
+                        <div class = "Resume-form">
+                            <div class = "Resume-form">
+                                <h3> Personal Section </h3>
+                            </div>
+                            <div class = "cv-form-row cv-form-row-about">
+                                <div class = "cols-3">
+                                    <div class = "form-elem">
+                                        <label for = "" class = "form-label">First Name</label>
+                                        <input name = "firstname" type = "text" class = "form-control firstname" id = "" onkeyup="generateResume()" placeholder="e.g. John">
+                                        <span class="form-text"></span>
+                                    </div>
+                                    <div class = "form-elem">
+                                        <label for = "" class = "form-label">Middle Name <span class = "opt-text">(optional)</span></label>
+                                        <input name = "middlename" type = "text" class = "form-control middlename" id = "" onkeyup="generateResume()" placeholder="e.g. Herbert">
+                                        <span class="form-text"></span>
+                                    </div>
+                                    <div class = "form-elem">
+                                        <label for = "" class = "form-label">Last Name</label>
+                                        <input name = "lastname" type = "text" class = "form-control lastname" id = "" onkeyup="generateResume()" placeholder="e.g. Doe">
+                                        <span class="form-text"></span>
+                                    </div>
+                                </div>
+
+                                <div class="cols-3">
+                                    <div class = "form-elem">
+                                        <label for = "" class = "form-label">Your Image</label>
+                                        <input name = "image" type = "file" class = "form-control image" id = "" accept = "image/*" onchange="previewImage()">
+                                    </div>
+                       <!--           <div class = "form-elem">
+                                        <label for = "" class = "form-label">Designation</label>
+                                        <input name = "designation" type = "text" class = "form-control designation" id = "" onkeyup="generateCV()" placeholder="e.g. Sr.Accountants">
+                                        <span class="form-text"></span>
+                                    </div> -->
+                                    <div class = "form-elem">
+                                        <label for = "" class = "form-label">Address</label>
+                                        <input name = "address" type = "text" class = "form-control address" id = "" onkeyup="generateResume()" placeholder="// Street-24">
+                                        <span class="form-text"></span>
+                                    </div>
+                                </div>
+
+                                <div class = "cols-3">
+                                    <div class = "form-elem">
+                                        <label for = "" class = "form-label">Email</label>
+                                        <input name = "email" type = "text" class = "form-control email" id = "" onkeyup="generateResume()" placeholder="// johndoe@gmail.com">
+                                        <span class="form-text"></span>
+                                    </div>
+                                    <div class = "form-elem">
+                                        <label for = "" class = "form-label">Phone No:</label>
+                                        <input name = "phoneno" type = "text" class = "form-control phoneno" id = "" onkeyup="generateResume()" placeholder="// 123-456-7890">
+                                        <span class="form-text"></span>
+                                    </div>
+                                    <div class = "form-elem">
+                                        <label for = "" class = "form-label">Summary</label>
+                                        <input name = "summary" type = "text" class = "form-control summary" id = "" onkeyup="generateResume()" placeholder="// objective(about yourself)">
+                                        <span class="form-text"></span>
+                                    </div>
+                                </div>
+                            </div>            
+                        </div>
+
+                        <div class="Resume-form-blk">
+                            <div class = "Resume-form-row-title">
+                                <h3>Achievements</h3>
+                            </div>
+                         <!-- <div class="achievements-items preview-blk-list" id="achievements_dsp"></div>
+                            <input name="achieve_title" type="text" class="form-control achieve_title" onkeyup="updateAchievements()" placeholder="// "> -->
+                            <div class = "row-separator repeater">
+                                <div id="resume-achievements-section"></div>
+
+                                <div class = "repeater" data-repeater-list = "group-a">
+                                    <div data-repeater-item>
+                                        <div class = "Resume-form-row Resume-form-row-achievement">
+                                            <div class = "cols-2">
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Title</label>
+                                                    <input name = "achieve_title" type = "text" class = "form-control achieve_title" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Description</label>
+                                                    <input name = "achieve_description" type = "text" class = "form-control achieve_description" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                            </div>
+                                            <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button>
+                            </div>
+                        </div>
+                        
+
+                        <div class="Resume-form-blk">
+                            <div class = "Resume-form-row-title">
+                                <h3>Experience</h3>
+                            </div>
+
+                            <div class = "row-separator repeater">
+                                <div class = "repeater" data-repeater-list = "group-b">
+                                    <div data-repeater-item>
+                                        <div class = "Resume-form-row Resume-form-row-experience">
+                                            <div class = "cols-3">
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Title</label>
+                                                    <input name = "exp_title" type = "text" class = "form-control exp_title" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Company / Organization</label>
+                                                    <input name = "exp_organization" type = "text" class = "form-control exp_organization" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Location</label>
+                                                    <input name = "exp_location" type = "text" class = "form-control exp_location" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class = "cols-3">
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Start Date</label>
+                                                    <input name = "exp_start_date" type = "date" class = "form-control exp_start_date" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">End Date</label>
+                                                    <input name = "exp_end_date" type = "date" class = "form-control exp_end_date" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Description</label>
+                                                    <input name = "exp_description" type = "text" class = "form-control exp_description" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                            </div>
+
+                                            <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button>
+                            </div>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // Now it's safe to access the elements
+                                    addAchievement();
+                                    updateAchievements();
+                                    // Other functions that manipulate DOM elements
+                                });
+                                </script>
+                                
+                        </div>
+
+                        <div class="Resume-form-blk">
+                            <div class = "Resume-form-row-title">
+                                <h3>Education</h3>
+                            </div>
+
+                            <div class = "row-separator repeater">
+                                <div class = "repeater" data-repeater-list = "group-c">
+                                    <div data-repeater-item>
+                                        <div class = "Resume-form-row Resume-form-row-experience">
+                                            <div class = "cols-3">
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">School</label>
+                                                    <input name = "edu_school" type = "text" class = "form-control edu_school" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Degree</label>
+                                                    <input name = "edu_degree" type = "text" class = "form-control edu_degree" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">City</label>
+                                                    <input name = "edu_city" type = "text" class = "form-control edu_city" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class = "cols-3">
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Start Date</label>
+                                                    <input name = "edu_start_date" type = "date" class = "form-control edu_start_date" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">End Date</label>
+                                                    <input name = "edu_graduation_date" type = "date" class = "form-control edu_graduation_date" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Description</label>
+                                                    <input name = "edu_description" type = "text" class = "form-control edu_description" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                            </div>
+
+                                            <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button>
+                            </div>
+                        </div>
+
+                        <div class="Resume-form-blk">
+                            <div class = "Resume-form-row-title">
+                                <h3>Projects</h3>
+                            </div>
+
+                            <div class = "row-separator repeater">
+                                <div class = "repeater" data-repeater-list = "group-d">
+                                    <div data-repeater-item>
+                                        <div class = "Resume-form-row Resume-form-row-experience">
+                                            <div class = "cols-3">
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Project Name</label>
+                                                    <input name = "proj_title" type = "text" class = "form-control proj_title" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Project link</label>
+                                                    <input name = "proj_link" type = "text" class = "form-control proj_link" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                                <div class = "form-elem">
+                                                    <label for = "" class = "form-label">Description</label>
+                                                    <input name = "proj_description" type = "text" class = "form-control proj_description" id = "" onkeyup="generateResume()">
+                                                    <span class="form-text"></span>
+                                                </div>
+                                            </div>
+                                            <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button>
+                            </div>
+                        </div>
+
+                        <div class="Resume-form-blk">
+                            <div class = "Resume-form-row-title">
+                                <h3>Skills</h3>
+                            </div>
+
+                            <div class = "row-separator repeater">
+                                <div class = "repeater" data-repeater-list = "group-e">
+                                    <div data-repeater-item>
+                                        <div class = "Resume-form-row Resume-form-row-skills">
+                                            <div class = "form-elem">
+                                                <label for = "" class = "form-label">Skills</label>
+                                                <input name = "skill" type = "text" class = "form-control skill" id = "" onkeyup="generateResume()"  placeholder="// List down all the skills ">
+                                                <span class="form-text"></span>
+                                            </div>
+
+                           <!--              <button data-repeater-delete type = "button" class = "repeater-remove-btn">-</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+             <!--                   <button type = "button" data-repeater-create value = "Add" class = "repeater-add-btn">+</button> -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <div class = "container">
+            <section id = "preview-sc" class = "print_area">
+                <div class = "preview-cnt">
+                    <div class = "preview-cnt-l bg-green text-white">
+                        <div class = "preview-blk">
+                            <div class = "preview-image">
+                                <img src = "" alt = "" id = "image_dsp"> 
+                            </div>
+                            <div class = "preview-item preview-item-name">
+                                <span class = "preview-item-val fw-6" id = "fullname_dsp"></span>
+                            </div>
+                            <div class = "preview-item">
+                                <span class = "preview-item-val text-uppercase fw-6 ls-1" id = "designation_dsp"></span>
+                            </div>
+                        </div>
+
+                        <div class = "preview-blk">
+                            <div class = "preview-blk-title">
+                                <h3>About</h3>
+                            </div>
+                            <div class = "preview-blk-list">
+                                <div class = "preview-item">
+                                    <span class = "preview-item-val" id = "phoneno_dsp"></span>
+                                </div>
+                                <div class = "preview-item">
+                                    <span class = "preview-item-val" id = "email_dsp"></span>
+                                </div>
+                                <div class = "preview-item">
+                                    <span class = "preview-item-val" id = "address_dsp"></span>
+                                </div>
+                                <div class = "preview-item">
+                                    <span class = "preview-item-val" id = "summary_dsp"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class = "preview-blk">
+                            <div class = "preview-blk-title">
+                                <h3>Skills</h3>
+                            </div>
+                            <div class = "skills-items preview-blk-list" id = "skills_dsp">
+                                <!-- skills list here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class = "preview-cnt-r bg-white">
+                        <div class = "preview-blk">
+                            <div class = "preview-blk-title">
+                                <h3>Achievements</h3>
+                            </div>
+                            <div class = "achievements-items preview-blk-list" id = "achievements_dsp"></div>
+                        </div>
+
+                        <div class = "preview-blk">
+                            <div class = "preview-blk-title">
+                                <h3>Educations</h3>
+                            </div>
+                            <div class = "educations-items preview-blk-list" id = "educations_dsp"></div>
+                        </div>
+
+                        <div class = "preview-blk">
+                            <div class = "preview-blk-title">
+                                <h3>Experiences</h3>
+                            </div>
+                            <div class = "experiences-items preview-blk-list" id = "experiences_dsp"></div>
+                        </div>
+
+                        <div class = "preview-blk">
+                            <div class = "preview-blk-title">
+                                <h3>Projects</h3>
+                            </div>
+                            <div class = "projects-items preview-blk-list" id = "projects_dsp"></div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </div>
+
+        <section class = "print-btn-sc">
+            <div class = "container">
+                <button type = "button" class = "print-btn btn btn-primary" onclick="printResume()">Print Resume</button>
+            </div>
+        </section>
+
+        <script>
+            // Variables and elements
+            let isChatbotProcessing = false;
+            let stopProcessing = false;
+            let abortController = null;
+            const chatContainer = document.getElementById('chat-container');
+            const messageContainer = document.getElementById('message-container');
+            const messageInput = document.getElementById('message-input');
+            const sendButton = document.getElementById('send-button');
+            const micImg = document.getElementById('mic-img');
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            let isListening = false;
+            let capturedText = '';
+    
+            // Toggle chat visibility
+            function toggleChat() {
+                chatContainer.style.display = (chatContainer.style.display === 'none' || chatContainer.style.display === '') ? 'flex' : 'none';
+            }
+    
+            // Handle key press for sending messages
+            function handleKeyPress(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    sendMessage();
+                    messageInput.value = '';
+                }
+            }
+    
+            // Send message to the API
+            async function sendMessage() {
+                const message = messageInput.value.trim();
+                if (isChatbotProcessing || message === '') return;
+                appendMessage('User', message);
+                console.log('Sending message:', message);
+    
+                sendButton.textContent = 'Stop';
+                sendButton.onclick = stopMessage;
+                isChatbotProcessing = true;
+                stopProcessing = false;
+    
+                try {
+                    abortController = new AbortController();
+                    const response = await fetch('http://localhost:11434/api/generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            model: "llama3.1:latest",
+                            prompt: message,
+                            system: "You are a chatbot in a Resume Builder webapp which helps build resumes and you help with building a resume. Your activity is to provide information related to only Resumes. Don’t justify your answers. BE BREIF. DO NOT GIVE ANSWERS RELATED TO DESIGN OF RESUME ONLY CONTENT BUILDING.",
+                        }),
+                        signal: abortController.signal,
+                    });
+    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+    
+                    const reader = response.body.getReader();
+                    let result = await reader.read();
+                    while (!result.done && !stopProcessing) {
+                        const jsonResponse = JSON.parse(new TextDecoder().decode(result.value));
+                        handleResponse(jsonResponse);
+                        result = await reader.read();
+                    }
+    
+                } catch (error) {
+                    console.error('Fetch request failed:', error);
+                    appendMessage('Chatbot', 'An error occurred while processing your request.');
+                } finally {
+                    sendButton.textContent = 'Send';
+                    sendButton.onclick = sendMessage;
+                    isChatbotProcessing = false;
+                    messageInput.value = '';
+                    abortController = null;
+                }
+            }
+    
+            // Stop processing messages
+            function stopMessage() {
+                if (abortController) {
+                    abortController.abort();
+                }
+                stopProcessing = true;
+            }
+    
+            // Handle and display chatbot responses
+            let currentMessageElement = null;
+
+            function handleResponse(response) {
+                if (response.done && response.context && response.context.length > 0) {
+                    // Handle additional information as needed
+                }
+
+                // Check if a new message should start
+                if (response.done) {
+                    if (currentMessageElement) {
+                        // Finalize the current message
+                        currentMessageElement = null;
+                    }
+                } else {
+                    // Append the response to the current message element
+                    if (!currentMessageElement) {
+                        // Start a new message element
+                        currentMessageElement = appendMessage('Chatbot', response.response);
+                    } else {
+                        // Append new response to the current message element
+                        currentMessageElement.innerHTML += response.response;
+                    }
+                }
+            }
+    
+            // Append message to the chat container
+            function appendMessage(sender, text) {
+                const messageElement = document.createElement('div');
+                messageElement.innerHTML = `<strong>${sender}:</strong> ${text}`;
+                messageContainer.appendChild(messageElement);
+                return messageElement;
+            }
+    
+            // Handle speech recognition
+            recognition.onresult = function(event) {
+                const result = event.results[event.results.length - 1];
+                const transcript = result[0].transcript.trim();
+                const lastWord = transcript.split(' ').pop();
+                if (!capturedText.includes(lastWord)) {
+                    capturedText += lastWord + ' ';
+                }
+                console.log(capturedText);
+            };
+    
+            function startListening() {
+                isListening = true;
+                micImg.src = "./icons8-microphone-24 (1).png";
+                capturedText = '';
+                recognition.start();
+            }
+    
+            function stopListening() {
+                isListening = false;
+                micImg.src = "./icons8-microphone-24.png";
+                recognition.stop();
+                messageInput.value = capturedText.trim();
+                sendMessage();
+            }
+    
+            function toggleListening() {
+                if (!isListening) {
+                    startListening();
+                } else {
+                    stopListening();
+                }
+            }
+        </script>
+    
+
+        <!-- jquery cdn -->
+        <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+        <!-- jquery repeater cdn -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.js" integrity="sha512-bZAXvpVfp1+9AUHQzekEZaXclsgSlAeEnMJ6LfFAvjqYUVZfcuVXeQoN5LhD7Uw0Jy4NCY9q3kbdEXbwhZUmUQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- custom js -->
+        <script src = "script.js"></script>
+        <!-- app js -->
+        <script src="app.js"></script>
+    </body>
+</html>
